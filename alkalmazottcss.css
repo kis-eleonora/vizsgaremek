@@ -1,0 +1,11 @@
+
+.nav-link{
+    font-size: x-large;
+}
+
+#logo{
+    max-width: 50%;
+    
+}
+
+.dropdown:hover .dropdown-menu {display: block;}
