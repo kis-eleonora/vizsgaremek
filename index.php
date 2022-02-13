@@ -31,9 +31,11 @@
 
                     </form>
                     <?php
+                    session_start();
                     if (isset($_SESSION['error'])) {
-                        echo '<div id="error">' . $_SESSION['error'] . '</div>';
+                        echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
                         unset($_SESSION['error']);
+                        exit();
                     }
                     ?>
                 </div>
