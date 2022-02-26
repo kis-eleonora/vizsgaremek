@@ -1,45 +1,83 @@
-<!DOCTYPE html>
-<html lang="hu">
-    <head>
-        <title>MikorDolgozom</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="indexcss.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <div>
-            <img id="fokep" src="kepek/work-g9338c4078_1280.png" alt=""/>
-            <div class="logo">
-                <a href="index.html"><img id="logokep" src="kepek/logo.png" alt=""/></a>
-            </div>
-            <div class="container-fluid">
-                <p>MŰSZAKBEOSZTÁS CÉGEKNEK</p>
-                <h1>Hozza létre és ossza meg</h1> 
-                <h3>beosztottjai munkarendjét percek alatt!<br>Kövesse és módosítsa bármikor munkabeosztását!</h3>
-                <div class="doboz">
-                    <h4>Lássuk a beosztásokat!</h4>
-                    <form class="form-inline" method="POST" action="ellenorzes.php">
+<?php
+session_start();
+$menu = filter_input(INPUT_GET, "menu", FILTER_SANITIZE_STRING);
+$_SESSION["login"] = true;
+$_SESSION["jog"] = "fonok";
+require_once 'head.php';
 
-                        <input type="text"  class ="form-control w-35 m-2" name="email" id="email" value="" placeholder="E-mail cím">
+if ($_SESSION["login"]) {
+    ?>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light">
+        <a class="navbar-brand" href="index.html"><img id="logo" src="kepek/logo.png" alt=""/></a>
 
-                        <input type="password" class ="form-control w-35 m-2" name="jelszo" id="jelszo" value="" placeholder="Jelszó">
-                        <button type="submit" class="btn btn-warning btn-lg m-2" >Belépés</button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+            <ul class="navbar-nav">
 
-                    </form>
-                    <?php
-                    session_start();
-                    if (isset($_SESSION['error'])) {
-                        echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
-                        unset($_SESSION['error']);
-                        exit();
-                    }
-                    ?>
-                </div>
-            </div>
+                <?php
+                if ($_SESSION["jog"] == "fonok") {
+                    echo '<li class="nav-item active">
+                    <a class="nav-link text-success" href=index.php?menu=beosztottjaim">BEOSZTOTTJAIM</a>
+                </li>';
+                } else {
+                    echo '<li class="nav-item active">
+                    <a class="nav-link text-success" href="index.php?menu=beosztasaim">BEOSZTÁSAIM</a>
+                </li>';
+                }
+                ?>
+
+                <li class="nav-item">
+                    <a class="nav-link text-success" href="index.php?menu=ertesitesek">ÉRTESÍTÉSEK</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-success" href="index.php?menu=fizeteseim">FIZETÉSEIM</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-success dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        SZEMÉLYES
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="index.php?menu=modositas">SZEMÉLYES ADATOK MÓDOSÍTÁSA</a>
+                        <a class="dropdown-item" href="index.php?menu=kijelentkezes">KIJELENTKEZÉS</a>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </body>
+    </nav>
+    <div>
+        <?php
+        switch ($menu) {
+            case "beosztottjaim":
+                include 'beosztottjaim.php';
+                break;
+            case "beosztasaim":
+                include 'beosztasaim.php';
+                break;
+            case "ertesitesek":
+                include 'ertesitesek.php';
+                break;
+            case "fizeteseim":
+                include 'fizeteseim.php';
+                break;
+            case "modositas":
+                include 'modositas.php';
+                break;
+            case "kijelentkezes":
+                include 'index.php';
+                break;
+            
+            default:
+                break;
+        }
+        ?>
+    </div>
+    <?php
+} else {
+    include 'login.php';
+}
+?>
+
+</body>
 </html>

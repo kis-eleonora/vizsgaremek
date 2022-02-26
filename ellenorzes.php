@@ -1,14 +1,13 @@
 <?php
 
-session_start();
+//session_start();
 
 require_once 'connect.php';
 
 if (empty($_POST['email'] && $_POST['jelszo'])) {
-    
-    $_SESSION['error'] = 'A mezők kitöltése kötelező!';
-    header("location: login.php");
-    
+
+    $_SESSION['error'] = 'Az összes mező kitöltése kötelező!';
+    include 'login.php';
 }
 
 if ($stmt = $conn->prepare('SELECT `email`, `jelszo`, `fonok` FROM `szemelyek` WHERE `email`= ?')) {
@@ -22,28 +21,24 @@ if ($stmt = $conn->prepare('SELECT `email`, `jelszo`, `fonok` FROM `szemelyek` W
         $stmt->bind_result($email, $jelszo, $fonok);
         $stmt->fetch();
 
-        if (sha1($_POST['jelszo']) === $jelszo ) {
+        if (sha1($_POST['jelszo']) === $jelszo) {
 
             session_regenerate_id();
-            $_SESSION['loggedin'] = TRUE;
-            header("location: index.php");
-//            if ($jog_ID === 1) {
-//                header("location: vezeto.php");
-//            } else {
-//                 header("location: alkalmazott.php");
-//            }
-
-            
+            $_SESSION['login'] = true;
+            if ($fonok === "") {
+                $_SESSION["jog"] = "fonok";
+            }
+            include 'index.php';
         } else {
-            
+
             $_SESSION['error'] = 'Helytelen felhasználónév vagy jelszó!';
-            header("location: login.php");
+            include 'login.php';
 //            echo 'Hibás jelszó';
         }
     } else {
-        
+
         $_SESSION['error'] = 'Helytelen felhasználónév vagy jelszó!';
-        header("location: login.php");
+        include 'login.php';
 //        echo 'Hibás email'; 
     }
 
