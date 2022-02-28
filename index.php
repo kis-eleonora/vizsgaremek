@@ -1,7 +1,7 @@
 <?php
 session_start();
 $menu = filter_input(INPUT_GET, "menu", FILTER_SANITIZE_STRING);
-$_SESSION["login"] = true;
+$_SESSION["login"] = false;
 $_SESSION["jog"] = "fonok";
 require_once 'head.php';
 
