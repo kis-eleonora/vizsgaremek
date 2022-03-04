@@ -1,14 +1,14 @@
 <?php
 session_start();
 $menu = filter_input(INPUT_GET, "menu", FILTER_SANITIZE_STRING);
-$_SESSION["login"] = false;
-$_SESSION["jog"] = "fonok";
+$_SESSION["login"] = isset($_SESSION["login"]) ? $_SESSION["login"] : false;
+$_SESSION["jog"] = isset($_SESSION["jog"]) ? $_SESSION["jog"] : "alkalmazott";
 require_once 'head.php';
 
 if ($_SESSION["login"]) {
     ?>
     <nav class="navbar navbar-expand-lg bg-white navbar-light">
-        <a class="navbar-brand" href="index.html"><img id="logo" src="kepek/logo.png" alt=""/></a>
+        <a class="navbar-brand" href="index.php"><img id="logo" src="kepek/logo.png" alt=""/></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,6 +46,13 @@ if ($_SESSION["login"]) {
             </ul>
         </div>
     </nav>
+    
+    <?php
+    if (isset($_SESSION['nev'])) {
+        echo '<aside class="udvozlet"><img id="avatar" src="kepek/avatar-ga9d1324f5_1280.png" alt=""/><h3> Üdvözöljük, kedves <br><strong>'. $_SESSION['nev'] . '</strong>!</h3></aside>';
+    }
+    ?>
+    
     <div>
         <?php
         switch ($menu) {
@@ -65,9 +72,10 @@ if ($_SESSION["login"]) {
                 include 'modositas.php';
                 break;
             case "kijelentkezes":
-                include 'index.php';
+                session_destroy();
+                header('location:index.php');
                 break;
-            
+
             default:
                 break;
         }

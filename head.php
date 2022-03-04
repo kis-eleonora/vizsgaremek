@@ -8,6 +8,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="indexcss.css<?php echo time(); ?>" rel="stylesheet" type="text/css"/>
+        <link href="indexcss.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
