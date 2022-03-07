@@ -1,42 +1,48 @@
 <!--Személyes adatok/jelszó módosítás-->
 
 <?php
-require_once 'head.php';
+//require_once 'head.php';
 require_once 'jelszo_mod.php';
-
+//var_dump($_SESSION);
 ?>
-<form method="POST">
+<div class ="modform">
     <h2>Adatok módosítása</h2>
-    <label>Régi jelszó</label>
-    <input type="password" 
-           name="regiJelszo" 
-           placeholder="Régi jelszó">
-    <br>
+    <form class="form-group" method="POST">
+        
+        <label>Régi jelszó</label>
+        <input class ="form-control w-35 m-2"
+               type="password" 
+               name="regiJelszo" 
+               placeholder="Régi jelszó">
+        <br>
 
-    <label>Új jelszó</label>
-    <input type="password" 
-           name="ujJelszo" 
-           placeholder="Új jelszó">
-    <br>
+        <label>Új jelszó</label>
+        <input class ="form-control w-35 m-2" 
+               type="password" 
+               name="ujJelszo" 
+               placeholder="Új jelszó">
+        <br>
 
-    <label>Új jelszó megerősítése</label>
-    <input type="password" 
-           name="jelszoMegerosites" 
-           placeholder="Új jelszó megerősítése">
-    <br>
+        <label>Új jelszó megerősítése</label>
+        <input class ="form-control w-35 m-2"
+               type="password" 
+               name="jelszoMegerosites" 
+               placeholder="Új jelszó megerősítése">
+        <br>
 
-    <button type="submit" name="modositas" value = "true">Mentés</button>
-</form>
+        <button type="submit" class="btn btn-success btn-lg m-2" name="modositas" value = "true">Mentés</button>
+    </form>
+</div>
 <?php
 if (isset($_SESSION['error'])) {
-echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
-unset($_SESSION['error']);
-exit();
+    echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
+    unset($_SESSION['error']);
+    exit();
 }
 if (isset($_SESSION['success'])) {
-echo '<div id="success" style="color:green;">' . $_SESSION['success'] . '</div>';
-unset($_SESSION['success']);
-exit();
+    echo '<div id="success" style="color:green;">' . $_SESSION['success'] . '</div>';
+    unset($_SESSION['success']);
+    exit();
 }
 ?>
 

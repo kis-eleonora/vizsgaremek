@@ -2,6 +2,7 @@
 <?php
 require_once 'head.php';
 require_once 'ellenorzes.php';
+var_dump($_SESSION);
 ?>
 <div>
     <img id="fokep" src="kepek/work-g9338c4078_1280.png" alt=""/>

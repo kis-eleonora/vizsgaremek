@@ -1,11 +1,11 @@
 #sheet {
-    margin: 0 auto;
-    width: 90%;
+    margin: auto;
+    width: 50%;
 }
 
 table#havinaptar, th, td {
     border: 1px solid;
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
     text-align: center;
 }
 #havinaptar th {
@@ -17,6 +17,11 @@ table#havinaptar, th, td {
     color: #006100;
     font-weight: bolder;
 }
+
+/*.bg-sky {
+    background-color: #02c2c7
+}*/
+
 .pihenonap {
     background-color: #FFC7CE;
     color: #9C0006;

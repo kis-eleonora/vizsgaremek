@@ -9,5 +9,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="indexcss.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css"/>
+        
     </head>
     <body>

@@ -20,11 +20,11 @@ if (filter_input(INPUT_POST, "modositas", FILTER_VALIDATE_BOOLEAN, FILTER_NULL_O
     } else {
         $regiJelszo = sha1($regiJelszo);
         $ujJelszo = sha1($ujJelszo);
-        $sql = "SELECT `jelszo` FROM `szemelyek` WHERE `szemely_id`= '$szemely_id' AND `jelszo`= '$regiJelszo'";
+        $sql = "SELECT `jelszo` FROM `szemelyek` WHERE `szemely_id`=". $_SESSION['szemely_id']." AND `jelszo`= '$regiJelszo'";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) === 1) {
 
-            $sql_2 = "UPDATE `szemelyek` SET `jelszo`= '$ujJelszo' WHERE szemely_id='$szemely_id'";
+            $sql_2 = "UPDATE `szemelyek` SET `jelszo`= '$ujJelszo' WHERE szemely_id=".$_SESSION['szemely_id'];
             mysqli_query($conn, $sql_2);
             $_SESSION['success'] = "Sikeres jelszóváltoztatás";
             include 'modositas.php';
