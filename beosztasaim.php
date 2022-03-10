@@ -4,7 +4,7 @@
 require_once 'head.php';
 require_once 'naptar.php';
 
-$naptar = new Naptar();
+
 $year = 2022;
 $month = 3;
 $datum = strtotime("$year-$month-1");
@@ -20,6 +20,7 @@ echo '</pre>';
     <h1>Naptár</h1>
     <div class = "naptar">
         <?php
+        $naptar = new Naptar();
         $naptar->havi(2022, 1);
         $naptar->havi(2022, 2);
         $naptar->havi(2022, 3);

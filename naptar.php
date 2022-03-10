@@ -12,6 +12,8 @@ class Naptar {
 
         $day = 1;
         $honapnev = null;
+        $this->datum = strtotime("$year-$month-1");
+
         switch (date("m", $this->datum)) {
             case 1:
                 $honapnev = "Január";
@@ -49,12 +51,9 @@ class Naptar {
             case 12:
                 $honapnev = "December";
                 break;
-//
-//            default:
-//                break;
-        }
-        $this->datum = strtotime("$year-$month-1");
 
+        }
+        
         echo '<h2>' . date('Y', $this->datum)." ". $honapnev . '</h2>
         <div class="table-responsive">
         <table class="table table-bordered text-center" id="havinaptar">
@@ -73,14 +72,14 @@ class Naptar {
                     <tr>';
         $h = intval(date('w', $this->datum)); //-- az első nap a hét hanyadik napjára esik (0-vasárnap, 1-hétfő, ...)
         $this->uresCella($h == 0 ? 6 : $h - 1); //-- az első sort feltöltjük üressel
-        while (intval(date('m', $this->datum = strtotime("$year-$month-$day"))) == intval($month)) {
+        while (intval(date('m', $this->datum)) == intval($month)) {
             echo intval(date('w', $this->datum)) == 1 ? '<tr>' : ''; //-- hétfő esetén új sort kezdünk
             $this->nap();
             echo intval(date('w', $this->datum)) == 0 ? '</tr>' : ''; //-- vasárnap esetén lezárjuk a sort
-            $day++;
-        };
-        $day--;
-        $h = intval(date('w', strtotime("$year-$month-$day")));
+            $this->datum = strtotime('+1 day',$this->datum);
+        }
+        
+        $h = intval(date('w', $this->datum));
         $this->uresCella($h == 0 ? 0 : 7 - $h); //-- utolsó sort is feltöltjük
         echo '</tr>                    
                 </tbody>
