@@ -29,10 +29,13 @@ if ($_SESSION["login"]) {
                 ?>
 
                 <li class="nav-item">
+                    <a class="nav-link text-success" href="index.php?menu=keresek">KÉRÉSEK</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-success" href="index.php?menu=ertesitesek">ÉRTESÍTÉSEK</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-success" href="index.php?menu=fizeteseim">FIZETÉSEIM</a>
+                    <a class="nav-link text-success" href="index.php?menu=jelenletik">JELENLÉTIK</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-success dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,13 +49,13 @@ if ($_SESSION["login"]) {
             </ul>
         </div>
     </nav>
-    
+
     <?php
     if (isset($_SESSION['nev'])) {
-        echo '<aside class="udvozlet"><img id="avatar" src="kepek/avatar-ga9d1324f5_1280.png" alt=""/><h3> Üdvözöljük, kedves <br><strong>'. $_SESSION['nev'] . '</strong>!</h3></aside>';
+        echo '<aside class="udvozlet"><img id="avatar" src="kepek/avatar-ga9d1324f5_1280.png" alt=""/><h3> Üdvözöljük, kedves <br><strong>' . $_SESSION['nev'] . '</strong>!</h3></aside>';
     }
     ?>
-    
+
     <div>
         <?php
         switch ($menu) {
@@ -62,11 +65,14 @@ if ($_SESSION["login"]) {
             case "beosztasaim":
                 include 'beosztasaim.php';
                 break;
+             case "keresek":
+                include 'keresek.php';
+                break;
             case "ertesitesek":
                 include 'ertesitesek.php';
                 break;
             case "fizeteseim":
-                include 'fizeteseim.php';
+                include 'jelenletik.php';
                 break;
             case "modositas":
                 include 'modositas.php';

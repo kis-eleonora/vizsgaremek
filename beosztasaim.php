@@ -11,9 +11,7 @@ $datum = strtotime("$year-$month-1");
 require_once 'naptardb.php';
 $db = new Database();
 $munkaszunetek = $db->Munkaszunetek($year);
-echo '<pre>';
-//print_r($munkaszunetek);
-echo '</pre>';
+
 ?>
 <link href="naptar.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css"/>
 <div id="sheet">

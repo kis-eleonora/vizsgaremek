@@ -91,3 +91,9 @@ aside > h3{
     text-align: center;
     padding: 30px;
 }
+
+.kerelem{
+    max-width: 50%;
+    display: block;
+    margin: auto;
+}
