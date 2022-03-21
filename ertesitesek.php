@@ -14,7 +14,7 @@ require_once 'connect.php';
             </thead>
             <tbody>   
                 <?php
-                $sql = "SELECT `nev`, `datum` FROM `keresek`, `szemelyek` WHERE szemelyek.szemely_id = keresek.szemely_id AND szemelyek.fonok=" . $_SESSION['szemely_id'] . ";";
+                $sql = "SELECT `nev`, `datum` FROM `keresek`, `szemelyek` WHERE szemelyek.szemely_id = keresek.szemely_id AND szemelyek.fonok=" . $_SESSION['szemely_id'] . " AND `allapot` = 'elinditva';";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
 
