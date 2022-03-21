@@ -15,22 +15,22 @@ if ($_SESSION["login"]) {
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav">
-
+                <li class="nav-item active">
+                    <a class="nav-link text-success" href="index.php?menu=beosztasaim">NAPTÁR</a>
+                </li>
                 <?php
                 if ($_SESSION["jog"] == "fonok") {
                     echo '<li class="nav-item active">
-                    <a class="nav-link text-success" href=index.php?menu=beosztottjaim">BEOSZTOTTJAIM</a>
+                    <a class="nav-link text-success" href="index.php?menu=beosztottjaim">BEOSZTOTTJAIM</a>
                 </li>';
                 } else {
-                    echo '<li class="nav-item active">
-                    <a class="nav-link text-success" href="index.php?menu=beosztasaim">BEOSZTÁSAIM</a>
+                    echo '<li class="nav-item">
+                    <a class="nav-link text-success" href="index.php?menu=keresek">KÉRÉSEK</a>
                 </li>';
                 }
                 ?>
 
-                <li class="nav-item">
-                    <a class="nav-link text-success" href="index.php?menu=keresek">KÉRÉSEK</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link text-success" href="index.php?menu=ertesitesek">ÉRTESÍTÉSEK</a>
                 </li>
@@ -61,17 +61,16 @@ if ($_SESSION["login"]) {
         switch ($menu) {
             case "beosztottjaim":
                 include 'beosztottjaim.php';
-                break;
             case "beosztasaim":
                 include 'beosztasaim.php';
                 break;
-             case "keresek":
+            case "keresek":
                 include 'keresek.php';
                 break;
             case "ertesitesek":
                 include 'ertesitesek.php';
                 break;
-            case "fizeteseim":
+            case "jelenletik":
                 include 'jelenletik.php';
                 break;
             case "modositas":

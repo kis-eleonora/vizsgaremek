@@ -97,3 +97,23 @@ aside > h3{
     display: block;
     margin: auto;
 }
+
+.beosztottak{
+    max-width: 50%;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+.beosztottak > h2{
+    padding: 30px;
+}
+
+li{
+    font-size: 20px;
+}
+
+.ertesitesek{
+     max-width: 50%;
+    display: block;
+    margin: auto;
+}
