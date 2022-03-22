@@ -7,7 +7,7 @@ require_once 'ellenorzes.php';
 <div>
     <img id="fokep" src="kepek/work-g9338c4078_1280.png" alt=""/>
     <div class="logo">
-        <a href="index.php"><img id="logokep" src="kepek/logo.png" alt=""/></a>
+        <a href="index.php"><img id="logokep" src="kepek/logo2.png" alt=""/></a>
     </div>
     <div class="container-fluid">
         <p>MŰSZAKBEOSZTÁS CÉGEKNEK</p>

@@ -81,10 +81,11 @@ aside > h3{
     text-align: center;
 }
 
-.modform{
+.kozep{
     max-width: 50%;
     display: block;
     margin: auto;
+    text-align: center;
 }
 
 .modform > h2{
@@ -92,19 +93,7 @@ aside > h3{
     padding: 30px;
 }
 
-.kerelem{
-    max-width: 50%;
-    display: block;
-    margin: auto;
-}
-
-.beosztottak{
-    max-width: 50%;
-    display: block;
-    margin: auto;
-    text-align: center;
-}
-.beosztottak > h2{
+.kozep > h2{
     padding: 30px;
 }
 
@@ -112,8 +101,15 @@ li{
     font-size: 20px;
 }
 
-.ertesitesek{
-     max-width: 50%;
+#indexkep{
+    display: block;
+    /*    padding: 30px;*/
+    /*    margin-left: auto;*/
+    margin: auto;
+    width: 50%;
+}
+.modform{
+    max-width: 50%;
     display: block;
     margin: auto;
 }

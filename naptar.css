@@ -4,6 +4,7 @@
 }
 
 table#havinaptar, th, td {
+
     border: 1px solid;
     /*border-collapse: collapse;*/
     text-align: center;
@@ -12,15 +13,12 @@ table#havinaptar, th, td {
     background-color: lightgrey;
     color: 999;    
 }
+
 .munkanap {
     background-color: #C6EFCE;
     color: #006100;
     font-weight: bolder;
 }
-
-/*.bg-sky {
-    background-color: #02c2c7
-}*/
 
 .pihenonap {
     background-color: #FFC7CE;

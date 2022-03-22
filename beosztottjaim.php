@@ -1,7 +1,7 @@
 <?php
 require_once 'connect.php';
 ?>
-<div class="beosztottak">
+<div class="kozep">
     <h2>Beosztottak listája</h2>
     <ol>
         <?php

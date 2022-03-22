@@ -3,7 +3,7 @@
 <?php 
 include_once 'kerelem_kuld.php';
 ?>
-<div class="kerelem">
+<div class="kozep">
     <h2>KÉRELEM</h2>
     <form method="POST" onsubmit="return confirm('Biztosan leadja a kérelmet?');">
 

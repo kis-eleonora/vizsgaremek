@@ -8,7 +8,7 @@ require_once 'head.php';
 if ($_SESSION["login"]) {
     ?>
     <nav class="navbar navbar-expand-lg bg-white navbar-light">
-        <a class="navbar-brand" href="index.php"><img id="logo" src="kepek/logo.png" alt=""/></a>
+        <a class="navbar-brand" href="index.php"><img id="logo" src="kepek/logo2.png" alt=""/></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,7 +49,9 @@ if ($_SESSION["login"]) {
             </ul>
         </div>
     </nav>
-
+<!--<div class="fooldal">
+    <img id="indexkep" src="kepek/laptop-g05b34184f_1280.png" alt=""/>
+</div>-->
     <?php
     if (isset($_SESSION['nev'])) {
         echo '<aside class="udvozlet"><img id="avatar" src="kepek/avatar-ga9d1324f5_1280.png" alt=""/><h3> Üdvözöljük, kedves <br><strong>' . $_SESSION['nev'] . '</strong>!</h3></aside>';
