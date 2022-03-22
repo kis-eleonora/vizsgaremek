@@ -61,6 +61,7 @@ if ($_SESSION["login"]) {
         switch ($menu) {
             case "beosztottjaim":
                 include 'beosztottjaim.php';
+                break;
             case "beosztasaim":
                 include 'beosztasaim.php';
                 break;
