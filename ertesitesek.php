@@ -29,18 +29,31 @@ include_once 'szab_elfogad.php';
 //                            . '<td>' . $row['azon'] . '</td>'
                 . '<td>' . $row['nev'] . '</td>
                             <td>' . $row['datum'] . '</td>'
-                . '<td><input type = "checkbox" name = "elfogadva" value = "' . $row['azon'] . '"></td>'
+                . '<td><input type = "checkbox" id= "elfogadva[]" name = "elfogadva[]" value = "' . $row['azon'] . '"></td>'
                 . '</tr>';
             }
         }
-       
-echo'</tbody>
-</table>
-<button type="submit" class="btn btn-success btn-lg m-2" name="elfogad" value = "true">Küldés</button>
-</form>
-</div>';
-} else {
-    echo '<h2>Elfogadott szabadságok</h2>';
-}
-?>
+
+        echo'</tbody>
+             </table>
+            <button type="submit" class="btn btn-success btn-lg m-2" name = "elfogadas" value = "true">Küldés</button>
+        </form>';
+        if (isset($_SESSION['error'])) {
+            echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
+            unset($_SESSION['error']);
+            exit();
+        }
+        if (isset($_SESSION['success'])) {
+            echo '<div id="success" style="color:green;">' . $_SESSION['success'] . '</div>';
+            unset($_SESSION['success']);
+            exit();
+        }
+        echo'</div>';
+    } 
+    
+    else {
+        echo '<h2>Elfogadott szabadságok</h2>';
+    }
+    ?>
 </div>
+
