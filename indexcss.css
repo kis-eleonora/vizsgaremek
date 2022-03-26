@@ -113,3 +113,11 @@ li{
     display: block;
     margin: auto;
 }
+
+.elfogadott > ul {
+  list-style-image: url('kepek/Badge-tick-icon.png');
+}
+
+.elfogadasra > ul {
+  list-style-image: url('kepek/Help-icon.png');
+}

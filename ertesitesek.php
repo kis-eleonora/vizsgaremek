@@ -49,10 +49,46 @@ include_once 'szab_elfogad.php';
             exit();
         }
         echo'</div>';
-    } 
-    
-    else {
-        echo '<h2>Elfogadott szabadságok</h2>';
+    } else {
+        echo '<div class="elfogadott">'
+        . '<h2>Elfogadott szabadságok</h2>'
+        . '<ul>';
+        $sql = "SELECT `nev`, `datum`, `azon` FROM `keresek`, `szemelyek` WHERE szemelyek.szemely_id = keresek.szemely_id AND szemelyek.szemely_id=" . $_SESSION['szemely_id'] . " AND `allapot` = 'elfogadva' AND `statusz` = 'szabadsag';";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<li>' . $row['datum'] . '</li>';
+            }
+            echo '</ul></div>';
+        } else {
+            echo 'Nincsen elfogadott kérelem.';
+        }
+
+        echo '<div class="elfogadasra">'
+        . '<h2>Elfogadásra vár</h2>'
+        . '<ul>';
+        $sql = "SELECT `nev`, `datum`, `azon` FROM `keresek`, `szemelyek` WHERE szemelyek.szemely_id = keresek.szemely_id AND szemelyek.szemely_id=" . $_SESSION['szemely_id'] . " AND `allapot` = 'elinditva' AND `statusz` = 'szabadsag';";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<li>' . $row['datum'] . '</li>';
+            }
+            echo '</ul></div>';
+        } else {
+            echo 'Nincsen elfogadásra váró kérelem.';
+        }
+
+        echo '<h2>Megmaradt szabadnapok száma:</h2>';
+        $sql = "SELECT (SELECT `eves_szabadsag` FROM `szemelyek` WHERE `szemely_id` = " . $_SESSION['szemely_id'] . ") - (SELECT COUNT(`azon`) FROM `keresek` WHERE `statusz`= 'szabadsag' AND `allapot`= 'elfogadva' AND `szemely_id` = " . $_SESSION['szemely_id'] . ") AS maradt;";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<h3>' . $row['maradt'] . '</h3>';
+            }
+        }
     }
     ?>
 </div>
