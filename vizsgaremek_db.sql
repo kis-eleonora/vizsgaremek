@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Feb 24. 15:05
+-- Létrehozás ideje: 2022. Ápr 01. 16:29
 -- Kiszolgáló verziója: 10.4.21-MariaDB
 -- PHP verzió: 8.0.10
 
@@ -62,27 +62,36 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `jelenletik`
---
-
-CREATE TABLE `jelenletik` (
-  `szemely_id` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `statusz` enum('ledolgozott','tappenz','szabadsag','fiz_unnep','piheno') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Tábla szerkezet ehhez a táblához `keresek`
 --
 
 CREATE TABLE `keresek` (
-  `szemely_id` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `statusz` enum('tappenz','szabadsag') NOT NULL,
-  `allapot` enum('elinditva','elfogadva') NOT NULL
+  `azon` int(11) NOT NULL COMMENT 'A kérelem egyedi azonosítója.',
+  `szemely_id` int(11) NOT NULL COMMENT 'Kapcsolat a ''szemelyek'' táblával.',
+  `datum` date NOT NULL COMMENT 'Dátum, amelyre a kérelem vonatkozik.',
+  `statusz` enum('tappenz','szabadsag') NOT NULL COMMENT 'A távollét oka.',
+  `allapot` enum('elinditva','elfogadva') NOT NULL COMMENT 'Végleges rögzítésre került-e a távollét.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- A tábla adatainak kiíratása `keresek`
+--
+
+INSERT INTO `keresek` (`azon`, `szemely_id`, `datum`, `statusz`, `allapot`) VALUES
+(1, 3, '2022-03-21', 'tappenz', 'elfogadva'),
+(2, 3, '2022-03-22', 'tappenz', 'elfogadva'),
+(3, 3, '2022-03-23', 'tappenz', 'elfogadva'),
+(4, 3, '2022-03-24', 'szabadsag', 'elfogadva'),
+(5, 3, '2022-03-25', 'szabadsag', 'elfogadva'),
+(7, 3, '2022-04-04', 'szabadsag', 'elfogadva'),
+(8, 3, '2022-04-05', 'szabadsag', 'elfogadva'),
+(9, 3, '2022-04-06', 'szabadsag', 'elfogadva'),
+(13, 3, '2022-04-07', 'szabadsag', 'elinditva'),
+(14, 4, '2022-04-04', 'szabadsag', 'elfogadva'),
+(15, 4, '2022-04-05', 'szabadsag', 'elinditva'),
+(16, 4, '2022-04-06', 'szabadsag', 'elinditva'),
+(17, 4, '2022-04-07', 'szabadsag', 'elinditva'),
+(18, 4, '2022-04-08', 'szabadsag', 'elinditva');
 
 -- --------------------------------------------------------
 
@@ -91,14 +100,22 @@ CREATE TABLE `keresek` (
 --
 
 CREATE TABLE `munkarend` (
-  `munkarend_id` int(11) NOT NULL,
+  `munkarend_id` int(11) NOT NULL COMMENT 'A különböző munkarendek azonosítója.',
   `munkakozi_szunet` int(11) NOT NULL DEFAULT 20 COMMENT 'Percekben meghatározva',
-  `kezdes` time NOT NULL DEFAULT '08:00:00',
-  `befejezes` time NOT NULL DEFAULT '16:20:00',
-  `szunet_kezd` time NOT NULL DEFAULT '12:00:00',
-  `szunet_vege` time NOT NULL DEFAULT '12:20:00',
-  `ledolgozott_ora` int(11) NOT NULL DEFAULT 8
+  `kezdes` time NOT NULL DEFAULT '08:00:00' COMMENT 'A napi munkavégzés kezdete.',
+  `befejezes` time NOT NULL DEFAULT '16:20:00' COMMENT 'A napi munkavégzés vége.',
+  `szunet_kezd` time NOT NULL DEFAULT '12:00:00' COMMENT 'A szünet kezdete.',
+  `szunet_vege` time NOT NULL DEFAULT '12:20:00' COMMENT 'A szünet vége.',
+  `ledolgozott_ora` int(11) NOT NULL DEFAULT 8 COMMENT 'Naponta ledolgozott órák.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- A tábla adatainak kiíratása `munkarend`
+--
+
+INSERT INTO `munkarend` (`munkarend_id`, `munkakozi_szunet`, `kezdes`, `befejezes`, `szunet_kezd`, `szunet_vege`, `ledolgozott_ora`) VALUES
+(0, 20, '08:00:00', '16:20:00', '12:00:00', '12:20:00', 8),
+(1, 20, '00:00:00', '00:00:00', '00:00:00', '00:00:00', 8);
 
 -- --------------------------------------------------------
 
@@ -107,10 +124,10 @@ CREATE TABLE `munkarend` (
 --
 
 CREATE TABLE `munkaszunetek` (
-  `datum` date NOT NULL,
-  `title` varchar(23) DEFAULT NULL,
-  `description` varchar(42) DEFAULT NULL,
-  `fizetett` enum('true','false') NOT NULL DEFAULT 'false'
+  `datum` date NOT NULL COMMENT 'A munkaszünet dátuma.',
+  `title` varchar(23) DEFAULT NULL COMMENT 'A munkaszüneti nap neve.',
+  `description` varchar(42) DEFAULT NULL COMMENT 'Hosszabb leírás a munkaszüneti napról.',
+  `fizetett` enum('true','false') NOT NULL DEFAULT 'false' COMMENT 'Fizetett ünnepről van-e szó.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -124,7 +141,7 @@ INSERT INTO `munkaszunetek` (`datum`, `title`, `description`, `fizetett`) VALUES
 ('2022-03-26', 'munkanap', 'áthelyezett munkanap (március 14. helyett)', 'false'),
 ('2022-04-15', 'Nagypéntek', 'munkaszüneti nap (4 napos hétvége)', 'true'),
 ('2022-04-18', 'Húsvét', 'munkaszüneti nap (4 napos hétvége)', 'true'),
-('2022-05-01', 'Munka Ünnep', 'munkaszüneti nap (hétvége)', 'false'),
+('2022-05-01', 'A munka ünnepe', 'munkaszüneti nap (hétvége)', 'false'),
 ('2022-06-06', 'Pünkösd', 'munkaszüneti nap (3 napos hétvége)', 'true'),
 ('2022-08-20', 'Államalapítás ünnepe', 'munkaszüneti nap (hétvége)', 'false'),
 ('2022-10-15', 'munkanap', 'áthelyezett munkanap (október 31. helyett)', 'false'),
@@ -138,419 +155,46 @@ INSERT INTO `munkaszunetek` (`datum`, `title`, `description`, `fizetett`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `napok`
---
-
-CREATE TABLE `napok` (
-  `datum` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- A tábla adatainak kiíratása `napok`
---
-
-INSERT INTO `napok` (`datum`) VALUES
-('2022-01-01'),
-('2022-01-02'),
-('2022-01-03'),
-('2022-01-04'),
-('2022-01-05'),
-('2022-01-06'),
-('2022-01-07'),
-('2022-01-08'),
-('2022-01-09'),
-('2022-01-10'),
-('2022-01-11'),
-('2022-01-12'),
-('2022-01-13'),
-('2022-01-14'),
-('2022-01-15'),
-('2022-01-16'),
-('2022-01-17'),
-('2022-01-18'),
-('2022-01-19'),
-('2022-01-20'),
-('2022-01-21'),
-('2022-01-22'),
-('2022-01-23'),
-('2022-01-24'),
-('2022-01-25'),
-('2022-01-26'),
-('2022-01-27'),
-('2022-01-28'),
-('2022-01-29'),
-('2022-01-30'),
-('2022-01-31'),
-('2022-02-01'),
-('2022-02-02'),
-('2022-02-03'),
-('2022-02-04'),
-('2022-02-05'),
-('2022-02-06'),
-('2022-02-07'),
-('2022-02-08'),
-('2022-02-09'),
-('2022-02-10'),
-('2022-02-11'),
-('2022-02-12'),
-('2022-02-13'),
-('2022-02-14'),
-('2022-02-15'),
-('2022-02-16'),
-('2022-02-17'),
-('2022-02-18'),
-('2022-02-19'),
-('2022-02-20'),
-('2022-02-21'),
-('2022-02-22'),
-('2022-02-23'),
-('2022-02-24'),
-('2022-02-25'),
-('2022-02-26'),
-('2022-02-27'),
-('2022-02-28'),
-('2022-03-01'),
-('2022-03-02'),
-('2022-03-03'),
-('2022-03-04'),
-('2022-03-05'),
-('2022-03-06'),
-('2022-03-07'),
-('2022-03-08'),
-('2022-03-09'),
-('2022-03-10'),
-('2022-03-11'),
-('2022-03-12'),
-('2022-03-13'),
-('2022-03-14'),
-('2022-03-15'),
-('2022-03-16'),
-('2022-03-17'),
-('2022-03-18'),
-('2022-03-19'),
-('2022-03-20'),
-('2022-03-21'),
-('2022-03-22'),
-('2022-03-23'),
-('2022-03-24'),
-('2022-03-25'),
-('2022-03-26'),
-('2022-03-27'),
-('2022-03-28'),
-('2022-03-29'),
-('2022-03-30'),
-('2022-03-31'),
-('2022-04-01'),
-('2022-04-02'),
-('2022-04-03'),
-('2022-04-04'),
-('2022-04-05'),
-('2022-04-06'),
-('2022-04-07'),
-('2022-04-08'),
-('2022-04-09'),
-('2022-04-10'),
-('2022-04-11'),
-('2022-04-12'),
-('2022-04-13'),
-('2022-04-14'),
-('2022-04-15'),
-('2022-04-16'),
-('2022-04-17'),
-('2022-04-18'),
-('2022-04-19'),
-('2022-04-20'),
-('2022-04-21'),
-('2022-04-22'),
-('2022-04-23'),
-('2022-04-24'),
-('2022-04-25'),
-('2022-04-26'),
-('2022-04-27'),
-('2022-04-28'),
-('2022-04-29'),
-('2022-04-30'),
-('2022-05-01'),
-('2022-05-02'),
-('2022-05-03'),
-('2022-05-04'),
-('2022-05-05'),
-('2022-05-06'),
-('2022-05-07'),
-('2022-05-08'),
-('2022-05-09'),
-('2022-05-10'),
-('2022-05-11'),
-('2022-05-12'),
-('2022-05-13'),
-('2022-05-14'),
-('2022-05-15'),
-('2022-05-16'),
-('2022-05-17'),
-('2022-05-18'),
-('2022-05-19'),
-('2022-05-20'),
-('2022-05-21'),
-('2022-05-22'),
-('2022-05-23'),
-('2022-05-24'),
-('2022-05-25'),
-('2022-05-26'),
-('2022-05-27'),
-('2022-05-28'),
-('2022-05-29'),
-('2022-05-30'),
-('2022-05-31'),
-('2022-06-01'),
-('2022-06-02'),
-('2022-06-03'),
-('2022-06-04'),
-('2022-06-05'),
-('2022-06-06'),
-('2022-06-07'),
-('2022-06-08'),
-('2022-06-09'),
-('2022-06-10'),
-('2022-06-11'),
-('2022-06-12'),
-('2022-06-13'),
-('2022-06-14'),
-('2022-06-15'),
-('2022-06-16'),
-('2022-06-17'),
-('2022-06-18'),
-('2022-06-19'),
-('2022-06-20'),
-('2022-06-21'),
-('2022-06-22'),
-('2022-06-23'),
-('2022-06-24'),
-('2022-06-25'),
-('2022-06-26'),
-('2022-06-27'),
-('2022-06-28'),
-('2022-06-29'),
-('2022-06-30'),
-('2022-07-01'),
-('2022-07-02'),
-('2022-07-03'),
-('2022-07-04'),
-('2022-07-05'),
-('2022-07-06'),
-('2022-07-07'),
-('2022-07-08'),
-('2022-07-09'),
-('2022-07-10'),
-('2022-07-11'),
-('2022-07-12'),
-('2022-07-13'),
-('2022-07-14'),
-('2022-07-15'),
-('2022-07-16'),
-('2022-07-17'),
-('2022-07-18'),
-('2022-07-19'),
-('2022-07-20'),
-('2022-07-21'),
-('2022-07-22'),
-('2022-07-23'),
-('2022-07-24'),
-('2022-07-25'),
-('2022-07-26'),
-('2022-07-27'),
-('2022-07-28'),
-('2022-07-29'),
-('2022-07-30'),
-('2022-07-31'),
-('2022-08-01'),
-('2022-08-02'),
-('2022-08-03'),
-('2022-08-04'),
-('2022-08-05'),
-('2022-08-06'),
-('2022-08-07'),
-('2022-08-08'),
-('2022-08-09'),
-('2022-08-10'),
-('2022-08-11'),
-('2022-08-12'),
-('2022-08-13'),
-('2022-08-14'),
-('2022-08-15'),
-('2022-08-16'),
-('2022-08-17'),
-('2022-08-18'),
-('2022-08-19'),
-('2022-08-20'),
-('2022-08-21'),
-('2022-08-22'),
-('2022-08-23'),
-('2022-08-24'),
-('2022-08-25'),
-('2022-08-26'),
-('2022-08-27'),
-('2022-08-28'),
-('2022-08-29'),
-('2022-08-30'),
-('2022-08-31'),
-('2022-09-01'),
-('2022-09-02'),
-('2022-09-03'),
-('2022-09-04'),
-('2022-09-05'),
-('2022-09-06'),
-('2022-09-07'),
-('2022-09-08'),
-('2022-09-09'),
-('2022-09-10'),
-('2022-09-11'),
-('2022-09-12'),
-('2022-09-13'),
-('2022-09-14'),
-('2022-09-15'),
-('2022-09-16'),
-('2022-09-17'),
-('2022-09-18'),
-('2022-09-19'),
-('2022-09-20'),
-('2022-09-21'),
-('2022-09-22'),
-('2022-09-23'),
-('2022-09-24'),
-('2022-09-25'),
-('2022-09-26'),
-('2022-09-27'),
-('2022-09-28'),
-('2022-09-29'),
-('2022-09-30'),
-('2022-10-01'),
-('2022-10-02'),
-('2022-10-03'),
-('2022-10-04'),
-('2022-10-05'),
-('2022-10-06'),
-('2022-10-07'),
-('2022-10-08'),
-('2022-10-09'),
-('2022-10-10'),
-('2022-10-11'),
-('2022-10-12'),
-('2022-10-13'),
-('2022-10-14'),
-('2022-10-15'),
-('2022-10-16'),
-('2022-10-17'),
-('2022-10-18'),
-('2022-10-19'),
-('2022-10-20'),
-('2022-10-21'),
-('2022-10-22'),
-('2022-10-23'),
-('2022-10-24'),
-('2022-10-25'),
-('2022-10-26'),
-('2022-10-27'),
-('2022-10-28'),
-('2022-10-29'),
-('2022-10-30'),
-('2022-10-31'),
-('2022-11-01'),
-('2022-11-02'),
-('2022-11-03'),
-('2022-11-04'),
-('2022-11-05'),
-('2022-11-06'),
-('2022-11-07'),
-('2022-11-08'),
-('2022-11-09'),
-('2022-11-10'),
-('2022-11-11'),
-('2022-11-12'),
-('2022-11-13'),
-('2022-11-14'),
-('2022-11-15'),
-('2022-11-16'),
-('2022-11-17'),
-('2022-11-18'),
-('2022-11-19'),
-('2022-11-20'),
-('2022-11-21'),
-('2022-11-22'),
-('2022-11-23'),
-('2022-11-24'),
-('2022-11-25'),
-('2022-11-26'),
-('2022-11-27'),
-('2022-11-28'),
-('2022-11-29'),
-('2022-11-30'),
-('2022-12-01'),
-('2022-12-02'),
-('2022-12-03'),
-('2022-12-04'),
-('2022-12-05'),
-('2022-12-06'),
-('2022-12-07'),
-('2022-12-08'),
-('2022-12-09'),
-('2022-12-10'),
-('2022-12-11'),
-('2022-12-12'),
-('2022-12-13'),
-('2022-12-14'),
-('2022-12-15'),
-('2022-12-16'),
-('2022-12-17'),
-('2022-12-18'),
-('2022-12-19'),
-('2022-12-20'),
-('2022-12-21'),
-('2022-12-22'),
-('2022-12-23'),
-('2022-12-24'),
-('2022-12-25'),
-('2022-12-26'),
-('2022-12-27'),
-('2022-12-28'),
-('2022-12-29'),
-('2022-12-30'),
-('2022-12-31');
-
--- --------------------------------------------------------
-
---
 -- Tábla szerkezet ehhez a táblához `szemelyek`
 --
 
 CREATE TABLE `szemelyek` (
-  `szemely_id` int(11) NOT NULL,
-  `nev` varchar(30) NOT NULL,
-  `adoazonosito` int(10) NOT NULL,
-  `fonok` varchar(30) NOT NULL COMMENT 'A beosztott főnökének neve, ha üres, akkor ő a vezető, nincs főnöke.',
-  `munkarend` int(11) NOT NULL COMMENT '0 - kötetlen\r\n1 - kötött',
-  `belepes` date NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `jelszo` varchar(30) NOT NULL,
-  `eves_szabadsag` int(11) NOT NULL COMMENT 'Szabadnapok száma.',
+  `szemely_id` int(11) NOT NULL COMMENT 'A személy egyedi azonosítója.',
+  `nev` varchar(30) NOT NULL COMMENT 'A dolgozó neve.',
+  `adoazonosito` int(10) NOT NULL COMMENT 'A dolgozó adóazonosítója.',
+  `fonok` int(11) NOT NULL COMMENT 'A beosztott főnökének neve, ha üres, akkor ő a vezető, nincs főnöke.',
+  `munkarend` int(11) NOT NULL COMMENT '0 - kötött\r\n1 - kötetlen',
+  `belepes` date NOT NULL COMMENT 'A munkahelyre történt felvétel dátuma.',
+  `email` varchar(30) NOT NULL COMMENT 'A felhasználó e-mail címe.',
+  `jelszo` varchar(500) NOT NULL COMMENT 'A felhasználó jelszava.',
+  `eves_szabadsag` int(11) NOT NULL COMMENT 'Szabadnapok száma egy évre.',
   `heti_munkaido` int(11) NOT NULL COMMENT 'Heti óraszám.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- A tábla adatainak kiíratása `szemelyek`
+--
+
+INSERT INTO `szemelyek` (`szemely_id`, `nev`, `adoazonosito`, `fonok`, `munkarend`, `belepes`, `email`, `jelszo`, `eves_szabadsag`, `heti_munkaido`) VALUES
+(2, 'Kovács István', 1527938761, 0, 1, '2021-08-01', 'kovacs@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 25, 40),
+(3, 'Veres Péter', 1234567891, 2, 0, '2022-01-03', 'veres@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 28, 40),
+(4, 'Szabó Péter', 265341897, 2, 0, '2022-01-03', 'szabo@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 26, 40),
+(5, 'Papp László', 562435619, 2, 0, '2022-01-03', 'papp@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 28, 40),
+(6, 'Kiss István', 167382654, 0, 1, '2021-11-08', 'kiss@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 29, 40),
+(7, 'Nagy Sándor', 12897657, 6, 0, '2022-01-03', 'nagy@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 26, 40),
+(8, 'Tóth János', 152378956, 6, 0, '2022-01-03', 'toth@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 25, 40);
 
 --
 -- Indexek a kiírt táblákhoz
 --
 
 --
--- A tábla indexei `jelenletik`
---
-ALTER TABLE `jelenletik`
-  ADD KEY `szemely_id` (`szemely_id`),
-  ADD KEY `datum` (`datum`);
-
---
 -- A tábla indexei `keresek`
 --
 ALTER TABLE `keresek`
-  ADD PRIMARY KEY (`szemely_id`);
+  ADD PRIMARY KEY (`azon`),
+  ADD KEY `datum` (`datum`),
+  ADD KEY `szemely_id` (`szemely_id`);
 
 --
 -- A tábla indexei `munkarend`
@@ -565,44 +209,38 @@ ALTER TABLE `munkaszunetek`
   ADD PRIMARY KEY (`datum`);
 
 --
--- A tábla indexei `napok`
---
-ALTER TABLE `napok`
-  ADD PRIMARY KEY (`datum`);
-
---
 -- A tábla indexei `szemelyek`
 --
 ALTER TABLE `szemelyek`
   ADD PRIMARY KEY (`szemely_id`),
-  ADD KEY `munkarend` (`munkarend`);
+  ADD KEY `munkarend` (`munkarend`),
+  ADD KEY `fonok` (`fonok`);
 
 --
 -- A kiírt táblák AUTO_INCREMENT értéke
 --
 
 --
+-- AUTO_INCREMENT a táblához `keresek`
+--
+ALTER TABLE `keresek`
+  MODIFY `azon` int(11) NOT NULL AUTO_INCREMENT COMMENT 'A kérelem egyedi azonosítója.', AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT a táblához `szemelyek`
 --
 ALTER TABLE `szemelyek`
-  MODIFY `szemely_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `szemely_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'A személy egyedi azonosítója.', AUTO_INCREMENT=9;
 
 --
 -- Megkötések a kiírt táblákhoz
 --
 
 --
--- Megkötések a táblához `jelenletik`
---
-ALTER TABLE `jelenletik`
-  ADD CONSTRAINT `jelenletik_ibfk_1` FOREIGN KEY (`szemely_id`) REFERENCES `szemelyek` (`szemely_id`),
-  ADD CONSTRAINT `jelenletik_ibfk_2` FOREIGN KEY (`datum`) REFERENCES `napok` (`datum`);
-
---
 -- Megkötések a táblához `keresek`
 --
 ALTER TABLE `keresek`
-  ADD CONSTRAINT `keresek_ibfk_1` FOREIGN KEY (`szemely_id`) REFERENCES `jelenletik` (`szemely_id`);
+  ADD CONSTRAINT `keresek_ibfk_1` FOREIGN KEY (`szemely_id`) REFERENCES `szemelyek` (`szemely_id`);
 
 --
 -- Megkötések a táblához `munkaszunetek`
@@ -614,6 +252,7 @@ ALTER TABLE `munkaszunetek`
 -- Megkötések a táblához `szemelyek`
 --
 ALTER TABLE `szemelyek`
+  ADD CONSTRAINT `fonok_fk` FOREIGN KEY (`fonok`) REFERENCES `szemelyek` (`szemely_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `szemelyek_ibfk_1` FOREIGN KEY (`munkarend`) REFERENCES `munkarend` (`munkarend_id`);
 COMMIT;
 

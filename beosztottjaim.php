@@ -2,7 +2,7 @@
 require_once 'connect.php';
 ?>
 <div class="kozep">
-    <h2>Beosztottak listája</h2>
+    <h2 class="text-uppercase">Beosztottak listája</h2>
     <ol>
         <?php
         $sql = "SELECT `nev` FROM `szemelyek` WHERE `fonok` = " . $_SESSION['szemely_id'] . ";";

@@ -8,6 +8,7 @@ table#havinaptar, th, td {
     border: 1px solid;
     /*border-collapse: collapse;*/
     text-align: center;
+    table-layout: fixed;
 }
 #havinaptar th {
     background-color: lightgrey;

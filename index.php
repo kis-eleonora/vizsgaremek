@@ -1,8 +1,8 @@
 <?php
 session_start();
 $menu = filter_input(INPUT_GET, "menu", FILTER_SANITIZE_STRING);
-$_SESSION["login"] = isset($_SESSION["login"]) ? $_SESSION["login"] : false;
-$_SESSION["jog"] = isset($_SESSION["jog"]) ? $_SESSION["jog"] : "alkalmazott";
+$_SESSION["login"] = $_SESSION["login"] ?? false;
+$_SESSION["jog"] = $_SESSION["jog"] ?? "alkalmazott";
 require_once 'head.php';
 
 if ($_SESSION["login"]) {
@@ -34,9 +34,7 @@ if ($_SESSION["login"]) {
                 <li class="nav-item">
                     <a class="nav-link text-success" href="index.php?menu=ertesitesek">ÉRTESÍTÉSEK</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-success" href="index.php?menu=jelenletik">JELENLÉTIK</a>
-                </li>
+             
                 <li class="nav-item dropdown">
                     <a class="nav-link text-success dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         SZEMÉLYES
@@ -72,9 +70,6 @@ if ($_SESSION["login"]) {
                 break;
             case "ertesitesek":
                 include 'ertesitesek.php';
-                break;
-            case "jelenletik":
-                include 'jelenletik.php';
                 break;
             case "modositas":
                 include 'modositas.php';

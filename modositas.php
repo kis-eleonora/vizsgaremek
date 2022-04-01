@@ -6,7 +6,7 @@ require_once 'jelszo_mod.php';
 //var_dump($_SESSION);
 ?>
 <div class ="modform">
-    <h2>Adatok módosítása</h2>
+    <h2 class="text-uppercase">Adatok módosítása</h2>
     <form class="form-group" method="POST">
         
         <label>Régi jelszó</label>
@@ -32,7 +32,7 @@ require_once 'jelszo_mod.php';
 
         <button type="submit" class="btn btn-success btn-lg m-2" name="modositas" value = "true">Mentés</button>
     </form>
-</div>
+
 <?php
 if (isset($_SESSION['error'])) {
     echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
@@ -45,4 +45,4 @@ if (isset($_SESSION['success'])) {
     exit();
 }
 ?>
-
+</div>

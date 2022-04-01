@@ -17,7 +17,6 @@ class Database {
     public function Munkaszunetek($year) {
         $sql = "SELECT * FROM `munkaszunetek`  WHERE year(`datum`)=$year;";
         $result = $this->mysqli->query($sql);
-        // Associative array
         $rows = array();
         while($row = $result->fetch_assoc()) {
             $rows[] = $row;

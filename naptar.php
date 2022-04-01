@@ -54,19 +54,17 @@ class Naptar {
 
         }
         
-        echo '<h2>' . date('Y', $this->datum)." ". $honapnev . '</h2>
+        echo '<h2 class="text-uppercase">' . date('Y', $this->datum)." ". $honapnev . '</h2>
         <div class="table-responsive">
         <table class="table table-bordered text-center" id="havinaptar">
                 <thead>
-                    <tr class="bg-light-gray">
                         <th class="text-uppercase">Hétfő</th>
                         <th class="text-uppercase">Kedd</th>
                         <th class="text-uppercase">Szerda</th>
                         <th class="text-uppercase">Csütörtök</th>
                         <th class="text-uppercase">Péntek</th>
                         <th class="text-uppercase">Szombat</th>
-                        <th class="text-uppercase">Vasárnap</th>
-                    </tr>
+                        <th class="text-uppercase">Vasárnap</th>                  
                 </thead>
                 <tbody>
                     <tr>';
@@ -77,8 +75,7 @@ class Naptar {
             $this->nap();
             echo intval(date('w', $this->datum)) == 0 ? '</tr>' : ''; //-- vasárnap esetén lezárjuk a sort
             $this->datum = strtotime('+1 day',$this->datum);
-        }
-        
+        }        
         $h = intval(date('w', $this->datum));
         $this->uresCella($h == 0 ? 0 : 7 - $h); //-- utolsó sort is feltöltjük
         echo '</tr>                    

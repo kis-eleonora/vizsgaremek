@@ -2,7 +2,7 @@
 <?php
 require_once 'head.php';
 require_once 'ellenorzes.php';
-//var_dump($_SESSION);
+
 ?>
 <div>
     <img id="fokep" src="kepek/work-g9338c4078_1280.png" alt=""/>
@@ -24,7 +24,7 @@ require_once 'ellenorzes.php';
 
             </form>
             <?php
-//            session_start();
+
             if (isset($_SESSION['error'])) {
                 echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
                 unset($_SESSION['error']);
@@ -34,5 +34,3 @@ require_once 'ellenorzes.php';
         </div>
     </div>
 </div>
-<!--</body>
-</html>-->
