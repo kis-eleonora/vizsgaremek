@@ -3,7 +3,8 @@ session_start();
 $menu = filter_input(INPUT_GET, "menu", FILTER_SANITIZE_STRING);
 $_SESSION["login"] = $_SESSION["login"] ?? false;
 $_SESSION["jog"] = $_SESSION["jog"] ?? "alkalmazott";
-require_once 'head.php';
+require_once 'src/head.php';
+require_once 'src/funkciok.php';
 
 if ($_SESSION["login"]) {
     ?>
@@ -19,7 +20,7 @@ if ($_SESSION["login"]) {
                     <a class="nav-link text-success" href="index.php?menu=beosztasaim">NAPTÁR</a>
                 </li>
                 <?php
-                if ($_SESSION["jog"] == "fonok") {
+                if (fonoke($_SESSION["jog"])) {
                     echo '<li class="nav-item active">
                     <a class="nav-link text-success" href="index.php?menu=beosztottjaim">BEOSZTOTTJAIM</a>
                 </li>';
@@ -60,19 +61,19 @@ if ($_SESSION["login"]) {
         <?php
         switch ($menu) {
             case "beosztottjaim":
-                include 'beosztottjaim.php';
+                include 'src/beosztottjaim.php';
                 break;
             case "beosztasaim":
-                include 'beosztasaim.php';
+                include 'src/beosztasaim.php';
                 break;
             case "keresek":
-                include 'keresek.php';
+                include 'src/keresek.php';
                 break;
             case "ertesitesek":
-                include 'ertesitesek.php';
+                include 'src/ertesitesek.php';
                 break;
             case "modositas":
-                include 'modositas.php';
+                include 'src/modositas.php';
                 break;
             case "kijelentkezes":
                 session_destroy();
@@ -86,7 +87,7 @@ if ($_SESSION["login"]) {
     </div>
     <?php
 } else {
-    include 'login.php';
+    include 'src/login.php';
 }
 ?>
 
