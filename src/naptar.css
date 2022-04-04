@@ -14,7 +14,6 @@ table#havinaptar, th, td {
 
     border: 1px solid;
     border-color: #dee2e6;
-    /*border-collapse: collapse;*/
     text-align: center;
     table-layout: fixed;
 }
@@ -25,7 +24,7 @@ table#havinaptar, th, td {
 
 #havinaptar th {
     background-color: #f7f7f7;
-    color: black;    
+    color: black;
 }
 
 .munkanap {
@@ -37,7 +36,7 @@ table#havinaptar, th, td {
 .pihenonap {
     background-color: #FFC7CE;
     color: #9C0006;
-    font-weight: bolder;   
+    font-weight: bolder;
 }
 .unnep {
     background-color: #FFC7CE;
@@ -47,15 +46,15 @@ table#havinaptar, th, td {
 .szombat {
     background-color: #FFEB9C;
     color: #9C5700;
-    font-weight: bolder;    
+    font-weight: bolder;
 }
 .vasarnap {
     background-color: #FFEB9C;
     color: #9C5700;
-    font-weight: bolder;    
+    font-weight: bolder;
 }
 .athelyezett {
     background-color: #FFEB9C;
     color: #9C5700;
-    font-weight: bolder;    
+    font-weight: bolder;
 }

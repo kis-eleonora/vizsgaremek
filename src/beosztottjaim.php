@@ -1,3 +1,5 @@
+<!--Beosztottak megkeresése az adatbázisból-->
+
 <?php
 require_once 'connect.php';
 ?>

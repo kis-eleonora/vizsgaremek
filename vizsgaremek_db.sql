@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Ápr 01. 16:29
+-- Létrehozás ideje: 2022. Ápr 04. 17:04
 -- Kiszolgáló verziója: 10.4.21-MariaDB
 -- PHP verzió: 8.0.10
 
@@ -88,10 +88,17 @@ INSERT INTO `keresek` (`azon`, `szemely_id`, `datum`, `statusz`, `allapot`) VALU
 (9, 3, '2022-04-06', 'szabadsag', 'elfogadva'),
 (13, 3, '2022-04-07', 'szabadsag', 'elinditva'),
 (14, 4, '2022-04-04', 'szabadsag', 'elfogadva'),
-(15, 4, '2022-04-05', 'szabadsag', 'elinditva'),
-(16, 4, '2022-04-06', 'szabadsag', 'elinditva'),
+(15, 4, '2022-04-05', 'szabadsag', 'elfogadva'),
+(16, 4, '2022-04-06', 'szabadsag', 'elfogadva'),
 (17, 4, '2022-04-07', 'szabadsag', 'elinditva'),
-(18, 4, '2022-04-08', 'szabadsag', 'elinditva');
+(18, 4, '2022-04-08', 'szabadsag', 'elinditva'),
+(19, 3, '2022-04-25', 'szabadsag', 'elfogadva'),
+(20, 3, '2022-05-02', 'tappenz', 'elfogadva'),
+(21, 3, '2022-05-03', 'tappenz', 'elfogadva'),
+(22, 3, '2022-05-16', 'szabadsag', 'elinditva'),
+(23, 3, '2022-05-17', 'szabadsag', 'elinditva'),
+(24, 3, '2022-05-18', 'szabadsag', 'elinditva'),
+(25, 3, '2022-04-11', 'szabadsag', 'elinditva');
 
 -- --------------------------------------------------------
 
@@ -224,7 +231,7 @@ ALTER TABLE `szemelyek`
 -- AUTO_INCREMENT a táblához `keresek`
 --
 ALTER TABLE `keresek`
-  MODIFY `azon` int(11) NOT NULL AUTO_INCREMENT COMMENT 'A kérelem egyedi azonosítója.', AUTO_INCREMENT=19;
+  MODIFY `azon` int(11) NOT NULL AUTO_INCREMENT COMMENT 'A kérelem egyedi azonosítója.', AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT a táblához `szemelyek`

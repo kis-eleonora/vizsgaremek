@@ -10,7 +10,6 @@ if (filter_input(INPUT_POST, "modositas", FILTER_VALIDATE_BOOLEAN, FILTER_NULL_O
     if ($regiJelszo == null || $ujJelszo == null || $jelszoMegerosites == null) {
         $_SESSION['error'] = 'Az összes mező kitöltése kötelező!';
         include 'modositas.php';
-    
     } elseif (!jelszoEgyezes($ujJelszo, $jelszoMegerosites)) {
 
         $_SESSION['error'] = 'A két jelszó nem egyezik!';

@@ -1,9 +1,11 @@
+<!--Adatbázis kapcsolat-->
+
 <?php
 
-   $conn = new mysqli("localhost", "root", "", "vizsgaremek_db");
+$conn = new mysqli("localhost", "root", "", "vizsgaremek_db");
 
 if ($conn->errno > 0) {
     die("Adatbázis nem elérhető!");
 }
 
-$conn-> set_charset("utf-8"); 
+$conn->set_charset("utf-8");

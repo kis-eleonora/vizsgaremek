@@ -1,13 +1,12 @@
 <!--Email és jelszó ellenőrzése-->
 
 <?php
-
 require_once 'connect.php';
 
 if (filter_input(INPUT_POST, "adatok", FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) {
     $jelszo = filter_input(INPUT_POST, "jelszo", FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
-    if ($jelszo == null || $email == null) {
+    if (nincsenekAdatok($jelszo, $email)) {
         $_SESSION['error'] = 'Az összes mező kitöltése kötelező!';
         include 'login.php';
     }
@@ -44,13 +43,11 @@ if (filter_input(INPUT_POST, "adatok", FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_F
 
                 $_SESSION['error'] = 'Helytelen jelszó!';
                 include 'login.php';
-//            echo 'Hibás jelszó';
             }
         } else {
 
-            $_SESSION['error'] = 'Helytelen felhasználónév!';
+            $_SESSION['error'] = 'Helytelen e-mail cím!';
             include 'login.php';
-//        echo 'Hibás email'; 
         }
 
         $stmt->close();

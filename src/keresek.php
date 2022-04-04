@@ -1,6 +1,6 @@
 <!--Szabadság/táppénz űrlap-->
 
-<?php 
+<?php
 include_once 'kerelem_kuld.php';
 ?>
 <div class="kozep">
@@ -18,27 +18,27 @@ include_once 'kerelem_kuld.php';
                 <input class="form-control" type="date" id="vege" name="vege">
             </div>
         </div>
-        
-<input type="radio" id="szabadsag" name="tavollet" value="szabadsag" checked>
-            <label for="szabadsag">Szabadság</label><br>
-            <input type="radio" id="tappenz" name="tavollet" value="tappenz">
-            <label for="tappenz">Táppénz</label><br>
 
-            <button type="submit" class="btn btn-success btn-lg m-2" name="kerelem" value = "true">Küldés</button>
-        
+        <input type="radio" id="szabadsag" name="tavollet" value="szabadsag" checked>
+        <label for="szabadsag">Szabadság</label><br>
+        <input type="radio" id="tappenz" name="tavollet" value="tappenz">
+        <label for="tappenz">Táppénz</label><br>
+
+        <button type="submit" class="btn btn-success btn-lg m-2" name="kerelem" value = "true">Küldés</button>
+
     </form>
 
-<?php
-if (isset($_SESSION['error'])) {
-    echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
-    unset($_SESSION['error']);
-    exit();
-}
-if (isset($_SESSION['success'])) {
-    echo '<div id="success" style="color:green;">' . $_SESSION['success'] . '</div>';
-    unset($_SESSION['success']);
-    exit();
-}
-?>
+    <?php
+    if (isset($_SESSION['error'])) {
+        echo '<div id="error" style="color:red;">' . $_SESSION['error'] . '</div>';
+        unset($_SESSION['error']);
+        exit();
+    }
+    if (isset($_SESSION['success'])) {
+        echo '<div id="success" style="color:green;">' . $_SESSION['success'] . '</div>';
+        unset($_SESSION['success']);
+        exit();
+    }
+    ?>
 
 </div>

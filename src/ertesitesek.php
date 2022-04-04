@@ -1,3 +1,5 @@
+<!--Értesítések kiírása főnök/alkalmazott - főnöknek szabadságok elfogadása-->
+
 <?php
 require_once 'connect.php';
 include_once 'szab_elfogad.php';
@@ -27,7 +29,7 @@ include_once 'szab_elfogad.php';
                 echo '<tr>'
                 . '<td>' . $row['nev'] . '</td>
                             <td>' . $row['datum'] . '</td>'
-                . '<td><input type = "checkbox" id= "elfogadva[]" name = "elfogadva[]" value = "' . $row['azon'] . '"></td>'
+                . '<td><input type = "checkbox" name = "elfogadva[]" value = "' . $row['azon'] . '"></td>'
                 . '</tr>';
             }
         }
@@ -89,4 +91,3 @@ include_once 'szab_elfogad.php';
     }
     ?>
 </div>
-

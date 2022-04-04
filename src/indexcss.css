@@ -115,11 +115,11 @@ li{
 }
 
 .elfogadott > ul {
-  list-style-image: url('../kepek/Badge-tick-icon.png');
+    list-style-image: url('../kepek/Badge-tick-icon.png');
 }
 
 .elfogadasra > ul {
-  list-style-image: url('../kepek/Help-icon.png');
+    list-style-image: url('../kepek/Help-icon.png');
 }
 
 #keret{

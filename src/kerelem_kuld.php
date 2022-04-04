@@ -15,21 +15,20 @@ if (filter_input(INPUT_POST, "kerelem", FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_
 
     if (filter_input(INPUT_POST, "vege")) {
         $end = new DateTime(filter_input(INPUT_POST, "vege"));
-        $end = $end->modify('+1 day');
-        $interval = new DateInterval('P1D');
-        $period = new DatePeriod($start, $interval, $end);
-        $sql = "INSERT INTO `keresek` (`szemely_id`, `datum`, `statusz`, `allapot`) VALUES ";
-        $napok = array();
-        foreach ($period as $date) {
-            $datumok = $date->format('Y-m-d');
-            $napok[] = "('" . $_SESSION['szemely_id'] . "','$datumok','$tavollet','$allapot')";
+
+        if ($end < $start) {
+            $_SESSION['error'] = "A kezdő dátum nem lehet későbbi, mint a záró dátum!";
+            include 'keresek.php';
+            exit();
         }
-        $sql .= join(',', $napok);
+        else {
+            $sql = sqlTobbnaposKerelem($_SESSION['szemely_id'], $end, $start, $tavollet, $allapot);
+        }
     } else {
-        $start = $start->format('Y-m-d');
-        $sql = "INSERT INTO `keresek`(`szemely_id`, `datum`, `statusz`, `allapot`) VALUES ('" . $_SESSION['szemely_id'] . "','$start','$tavollet','$allapot');";
+
+        $sql = sqlEgynaposKerelem($_SESSION['szemely_id'], $start, $tavollet, $allapot);
     }
-    
+
     if (mysqli_query($conn, $sql)) {
         $_SESSION['success'] = "Kérelem elküldve!";
         include 'keresek.php';
